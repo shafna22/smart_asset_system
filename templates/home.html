@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAIMS - Smart Asset & Inventory Management</title>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+    /* General Styles */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Raleway', sans-serif;
+    }
+
+    body {
+        background-color: #fdece4;
+        color: #333;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    /* Navbar */
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 50px;
+        background-color: #c76d78;
+        color: #fff;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .navbar h1 {
+        font-weight: 700;
+        font-size: 32px;
+        letter-spacing: 1px;
+    }
+
+    .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 30px;
+    }
+
+    .nav-links li a {
+        color: #fff;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+    .nav-links li a:hover {
+        color: #fdece4;
+        text-shadow: 0 0 5px #fdece4;
+    }
+
+    /* Hero Section */
+    .hero {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+        padding: 150px 20px 100px 20px;
+        background: linear-gradient(135deg, #fdece4 0%, #ffc3c3 100%);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(196,22,42,0.15) 0%, transparent 70%);
+        animation: rotate 20s linear infinite;
+        z-index: 0;
+    }
+
+    @keyframes rotate {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .hero h1 {
+        font-size: 52px;
+        color: #a02332;
+        font-weight: 700;
+        margin-bottom: 20px;
+        z-index: 1;
+        position: relative;
+    }
+
+    .hero p {
+        font-size: 20px;
+        color: #4d4d4d;
+        margin-bottom: 30px;
+        max-width: 650px;
+        z-index: 1;
+        position: relative;
+        line-height: 1.6;
+    }
+
+    .hero .btn {
+        padding: 15px 40px;
+        background-color: #a02332;
+        color: #fff;
+        font-weight: 700;
+        border-radius: 10px;
+        box-shadow: 0 6px 15px rgba(196,22,42,0.5);
+        transition: 0.3s;
+        z-index: 1;
+        position: relative;
+    }
+
+    .hero .btn:hover {
+        background-color: #a00f1f;
+        box-shadow: 0 8px 20px rgba(196,22,42,0.6);
+        transform: translateY(-3px);
+    }
+
+    /* Footer */
+    footer {
+        text-align: center;
+        padding: 20px 10px;
+        background-color: #c76d78;
+        color: #fff;
+        font-weight: 500;
+        margin-top: auto;
+        box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+    }
+
+    /* Responsive */
+    @media screen and (max-width: 768px) {
+        .hero h1 {
+            font-size: 36px;
+        }
+        .hero p {
+            font-size: 18px;
+            padding: 0 20px;
+        }
+        .navbar {
+            padding: 15px 20px;
+        }
+        .nav-links {
+            gap: 20px;
+        }
+    }
+</style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <h1>SAIMS</h1>
+        <ul class="nav-links">
+            <li><a href="{% url 'login' %}">Login</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Smart Asset & Inventory Management</h1>
+        <p>Take complete control of your assets and inventory. SAIMS simplifies tracking, management, and optimization with style and efficiency.</p>
+        <a href="{% url 'login' %}" class="btn">Get Started</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2026 SAIMS. All Rights Reserved.
+    </footer>
+</body>
+</html>

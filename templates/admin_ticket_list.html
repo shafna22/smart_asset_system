@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Repair Tickets - Admin</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5e6e8;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            width: 1000px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #b44a5a;
+            margin-bottom: 25px;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            background-color: #b44a5a;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .btn:hover {
+            background-color: #922f3c;
+        }
+
+        .btn-secondary {
+            background-color: gray;
+        }
+
+        .btn-secondary:hover {
+            background-color: #555;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f8d7da;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #eee;
+        }
+
+        select {
+            padding: 6px;
+            border-radius: 6px;
+        }
+
+        .employee-name {
+            font-weight: bold;
+            color: #444;
+        }
+
+        /* Tooltip Styling */
+        .tooltip {
+            position: relative;
+            cursor: pointer;
+            color: #b44a5a;
+            font-weight: bold;
+        }
+
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 300px;
+            background-color: #333;
+            color: #fff;
+            text-align: left;
+            padding: 10px;
+            border-radius: 6px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="top-bar">
+        <h2>Repair Tickets (Admin)</h2>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Employee</th>
+                <th>Asset</th>
+                <th>Issue</th>
+                <th>Status</th>
+                <th>Update</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for ticket in tickets %}
+            <tr>
+                <td>#{{ ticket.id }}</td>
+                <td class="employee-name">{{ ticket.employee.username }}</td>
+                <td>{{ ticket.asset }}</td>
+
+                <td>
+                    <div class="tooltip">
+                        {{ ticket.issue_description|truncatechars:30 }}
+                        <div class="tooltip-text">
+                            {{ ticket.issue_description }}
+                        </div>
+                    </div>
+                </td>
+
+                <td>
+                    <form method="POST" action="{% url 'update_ticket_status' ticket.id %}">
+                        {% csrf_token %}
+                        <select name="status">
+                            <option value="Pending" {% if ticket.status == "Pending" %}selected{% endif %}>Pending</option>
+                            <option value="In Progress" {% if ticket.status == "In Progress" %}selected{% endif %}>In Progress</option>
+                            <option value="Resolved" {% if ticket.status == "Resolved" %}selected{% endif %}>Resolved</option>
+                            <option value="Retired" {% if ticket.status == "Retired" %}selected{% endif %}>Retired</option>
+                        </select>
+                </td>
+
+                <td>
+                        <button type="submit" class="btn">Save</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" style="text-align:center;">No tickets found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <br>
+        <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary">Back</a>
+
+</div>
+
+</body>
+</html>

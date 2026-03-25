@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assign Asset</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f4e9ea;
+            padding: 40px;
+        }
+
+        .container {
+            width: 500px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #b2454a;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0 20px 0;
+        }
+
+        button {
+            background-color: #b2454a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #922f34;
+        }
+
+        .back {
+            text-decoration: none;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Assign Asset</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Employee</label>
+        <select name="employee" required>
+            <option value="">Select Employee</option>
+            {% for emp in employees %}
+                <option value="{{ emp.id }}">
+                    {{ emp.username }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <label>Asset</label>
+        <select name="asset" required>
+            <option value="">Select Asset</option>
+            {% for asset in assets %}
+                <option value="{{ asset.id }}">
+                    {{ asset.name }} ({{ asset.asset_id }})
+                </option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">Assign</button>
+        <a href="{% url 'assign_list' %}" class="back">Cancel</a>
+
+    </form>
+</div>
+
+</body>
+</html>

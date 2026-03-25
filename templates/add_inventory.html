@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Inventory Item</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e6d6d8;  /* light pink background */
+            padding: 40px;
+        }
+
+        .container {
+            background: #f3f0f0;
+            padding: 30px;
+            border-radius: 10px;
+            width: 500px;
+            margin: auto;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 5px;
+            border: none;
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .save-btn {
+            background-color: #b04a5a;
+        }
+
+        .cancel-btn {
+            background-color: #888;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Add Inventory Item</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <label>Item Name:</label>
+        <input type="text" name="item_name" required>
+
+        <label>Quantity:</label>
+        <input type="number" name="quantity" required>
+
+        <div class="button-group">
+            <button type="submit" class="btn save-btn">Save</button>
+            <a href="{% url 'inventory_list' %}" class="btn cancel-btn">Cancel</a>
+        </div>
+
+    </form>
+</div>
+
+</body>
+</html>

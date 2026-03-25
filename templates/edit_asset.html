@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Asset</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f7e9ec;
+            padding: 40px;
+        }
+        .form-box {
+            background: white;
+            padding: 25px;
+            width: 400px;
+            margin: auto;
+            border-radius: 10px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+        }
+        .btn {
+            background: #b54b5a;
+            color: white;
+            padding: 10px;
+            border: none;
+            width: 100%;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-box">
+    <h2>Edit Asset</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <input type="text" name="asset_id" value="{{ asset.asset_id }}" required>
+        <input type="text" name="name" value="{{ asset.name }}" required>
+        <input type="text" name="brand" value="{{ asset.brand }}" required>
+
+        <select name="inventory_item" required>
+            {% for item in inventory_items %}
+                <option value="{{ item.id }}"
+                    {% if asset.inventory_item.id == item.id %}selected{% endif %}>
+                    {{ item.item_name }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <select name="status">
+            <option {% if asset.status == 'Available' %}selected{% endif %}>Available</option>
+            <option {% if asset.status == 'Assigned' %}selected{% endif %}>Assigned</option>
+            <option {% if asset.status == 'Under Repair' %}selected{% endif %}>Under Repair</option>
+            <option {% if asset.status == 'Retired' %}selected{% endif %}>Retired</option>
+        </select>
+
+        <button class="btn">Update Asset</button>
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SAIMS | Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Raleway', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fdece4 0%, #ffc3c3 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-card {
+            background: #fff;
+            padding: 40px 35px;
+            width: 100%;
+            max-width: 420px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(196, 22, 42, 0.2);
+            text-align: center;
+        }
+
+        .login-card h2 {
+            color: #c4162a;
+            font-size: 30px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .login-card p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 15px;
+        }
+
+        form p {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+
+        form label {
+            font-weight: 600;
+            color: #444;
+            font-size: 14px;
+        }
+
+        form input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 6px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        form input:focus {
+            outline: none;
+            border-color: #c4162a;
+            box-shadow: 0 0 0 2px rgba(196, 22, 42, 0.15);
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 20px;
+            background-color: #c4162a;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 6px 15px rgba(196, 22, 42, 0.4);
+        }
+
+        button:hover {
+            background-color: #a00f1f;
+            transform: translateY(-2px);
+        }
+
+        .signup-link {
+            margin-top: 25px;
+            font-size: 14px;
+        }
+
+        .signup-link a {
+            color: #c4162a;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <h2> Login</h2>
+        <p>Welcome back! Please sign in to continue.</p>
+
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Login</button>
+        </form>
+
+        <div class="signup-link">
+            Don’t have an account?
+            <a href="{% url 'signup' %}">Sign Up</a>
+        </div>
+    </div>
+
+</body>
+</html>

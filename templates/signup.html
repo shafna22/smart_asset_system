@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SAIMS | Sign Up</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Raleway', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fdece4 0%, #ffc3c3 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .signup-card {
+            background: #fff;
+            padding: 40px 35px;
+            width: 100%;
+            max-width: 450px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(196, 22, 42, 0.2);
+            text-align: center;
+        }
+
+        .signup-card h2 {
+            color: #c4162a;
+            font-size: 30px;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+
+        form p {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+
+        form label {
+            font-weight: 600;
+            color: #444;
+            font-size: 14px;
+        }
+
+        form input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 6px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        form input:focus {
+            outline: none;
+            border-color: #c4162a;
+            box-shadow: 0 0 0 2px rgba(196, 22, 42, 0.15);
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 25px;
+            background-color: #c4162a;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 6px 15px rgba(196, 22, 42, 0.4);
+        }
+
+        button:hover {
+            background-color: #a00f1f;
+            transform: translateY(-2px);
+        }
+
+        .login-link {
+            margin-top: 22px;
+            font-size: 14px;
+        }
+
+        .login-link a {
+            color: #c4162a;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="signup-card">
+        <h2>Create Account</h2>
+
+       <form method="POST">
+    {% csrf_token %}
+
+    {% for field in form %}
+        <div style="margin-bottom:16px; text-align:left;">
+            {{ field.label_tag }}
+            {{ field }}
+
+            {% if field.errors %}
+                <div style="color:#c4162a; font-size:13px; margin-top:4px;">
+                    {{ field.errors|striptags }}
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+    {% if form.non_field_errors %}
+        <div style="color:#c4162a; font-size:13px; margin-bottom:10px;">
+            {{ form.non_field_errors|striptags }}
+        </div>
+    {% endif %}
+
+    <button type="submit">Sign Up</button>
+</form>
+
+
+        <div class="login-link">
+            Already have an account?
+            <a href="{% url 'login' %}">Login</a>
+        </div>
+    </div>
+
+</body>
+</html>

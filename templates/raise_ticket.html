@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Raise Ticket</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5e6e8;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            width: 500px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #b44a5a;
+            margin-bottom: 25px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #444;
+        }
+
+        select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 18px;
+            background-color: #b44a5a;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .btn:hover {
+            background-color: #922f3c;
+        }
+
+        .btn-secondary {
+            background-color: gray;
+        }
+
+        .btn-secondary:hover {
+            background-color: #555;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h2>Raise Repair Ticket</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        
+        <label>Select Asset:</label>
+        {{ form.asset }}
+
+        <label>Issue Description:</label>
+        {{ form.issue_description }}
+
+        <div class="button-group">
+            <button type="submit" class="btn">Submit Ticket</button>
+            <a href="{% url 'employee_dashboard' %}" class="btn btn-secondary">Back</a>
+        </div>
+    </form>
+
+</div>
+
+</body>
+</html>

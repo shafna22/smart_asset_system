@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Users</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f6e9ea;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #b04a5a;
+            margin-bottom: 20px;
+        }
+
+        .search-bar {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-bar input,
+        .search-bar select {
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        .search-bar button {
+            background: #b04a5a;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: #b04a5a;
+            color: white;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #f9f2f3;
+        }
+
+        .btn {
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .edit-btn {
+            background: #6c8cd5;
+            color: white;
+        }
+
+        .deactivate-btn {
+            background: #e05a5a;
+            color: white;
+        }
+
+        .active {
+            color: green;
+            font-weight: bold;
+        }
+
+        .inactive {
+            color: red;
+            font-weight: bold;
+        }
+        .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.dashboard-btn {
+    background: #6c8cd5;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.dashboard-btn:hover {
+    background: #5876c0;
+}
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Manage Users</h2>
+
+    <!-- Search bar -->
+   <div class="top-bar">
+    <form method="get" class="search-bar">
+        <input type="text" name="q" placeholder="Search by username or role" value="{{ request.GET.q }}">
+        <button type="submit">Search</button>
+    </form>
+
+    <a href="{% url 'admin_dashboard' %}" class="dashboard-btn">
+        Dashboard
+    </a>
+</div>
+
+    <!-- User table -->
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Active</th>
+                <th>Date Joined</th>
+                <th>Last Login</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.role }}</td>
+                <td>
+                    {% if user.is_active %}
+                        <span class="active">Active</span>
+                    {% else %}
+                        <span class="inactive">Inactive</span>
+                    {% endif %}
+                </td>
+                <td>{{ user.date_joined }}</td>
+                <td>{{ user.last_login }}</td>
+                <td>
+                    <a href="{% url 'edit_user' user.id %}" class="btn edit-btn">Edit</a>
+                    {% if user.is_active %}
+                        <a href="{% url 'deactivate_user' user.id %}" class="btn deactivate-btn">Deactivate</a>
+                    {% else %}
+                        <a href="{% url 'activate_user' user.id %}" class="btn edit-btn">Activate</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7">No users found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

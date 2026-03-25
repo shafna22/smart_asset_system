@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Asset</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f7e9ec;
+            padding: 40px;
+        }
+        .form-box {
+            background: white;
+            padding: 25px;
+            width: 400px;
+            margin: auto;
+            border-radius: 10px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+        }
+        .btn {
+            background: #b54b5a;
+            color: white;
+            padding: 10px;
+            border: none;
+            width: 100%;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-box">
+    <h2>Add Asset</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <input type="text" name="asset_id" placeholder="Asset ID" required>
+        <input type="text" name="name" placeholder="Asset Name" required>
+        <input type="text" name="brand" placeholder="Brand" required>
+
+        <select name="inventory_item" required>
+            <option value="">Select Inventory</option>
+            {% for item in inventory_items %}
+                <option value="{{ item.id }}">
+                    {{ item.item_name }} ({{ item.quantity }} available)
+                </option>
+            {% endfor %}
+        </select>
+
+        <button class="btn">Save Asset</button>
+    </form>
+</div>
+
+</body>
+</html>
